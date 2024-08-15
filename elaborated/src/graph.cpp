@@ -28,7 +28,7 @@ bool isAncestor(const shared_vertex ancestor, const shared_vertex decendant)
 
 void Vertex::setParent(std::shared_ptr<Vertex> _parent)
 {
-	assert(parent.get() != this);
+	assert(_parent.get() != this);
 
 	parent = _parent;
 }
