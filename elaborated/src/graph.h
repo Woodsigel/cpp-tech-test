@@ -116,10 +116,43 @@ public:
 	using EdgeExaminer = std::function<void(const shared_vertex source, const shared_vertex target)>;
 
 	DepthFirstVisitor();
+
+	/*
+	 * Register a callback function to be invoked when a tree edge is discovered
+	 * during a depth-first search
+	 *
+	 * This function allows the caller to register a callback function that will be
+	 * called whenever a tree edge is discovered during a depth-first search The provided
+	 * `examiner` function will be invoked with the two vertices that are connected by the 
+	 * discovered tree edge.
+	 *
+	 * @param examiner the callback function to be invoked when a tree edge is
+	 *        discovered during a depth-first search
+	 */
 	void registerTreeEdgeExaminer(EdgeExaminer examiner);
+
+	/*
+     * Register a callback function to be invoked when a back edge is discovered
+     * during a depth-first search
+     *
+     * This function allows the caller to register a callback function that will be
+     * called whenever a back edge is discovered during a depth-first search The provided
+     * `examiner` function will be invoked with the two vertices that are connected by the
+     * discovered back edge.
+     *
+     * @param examiner the callback function to be invoked when a back edge is
+     *        discovered during a depth-first search
+     */
 	void registerBackEdgeExaminer(EdgeExaminer examiner);
 
-
+	/*
+	 * Perform a depth-first search (DFS) on the graph starting from the given
+	 * source vertex
+	 *
+	 * @param graph the graph on which to perform the depth-first search
+	 * @param source the vertex from which to start the search, which must be
+	 *        present in the provided graph
+	 */
 	void search(UndirectedGraph& graph, shared_vertex source);
 
 private:
