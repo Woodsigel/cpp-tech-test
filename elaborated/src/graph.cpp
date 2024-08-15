@@ -48,6 +48,13 @@ bool Vertex::isParentOf(std::shared_ptr<Vertex> other)
 	return getID() == other->parent->getID();
 }
 
+void Vertex::reset()
+{
+	bDiscovered = false;
+	parent = nullptr;
+}
+
+
 UndirectedGraph::UndirectedGraph(const std::vector<Edge>& edges) {
 	for (auto&& edge : edges) {
 		addAdjacentListFrom(edge);
@@ -134,7 +141,7 @@ void UndirectedGraph::resetVertices() {
 	auto vertices = getVertices();
 
 	for (auto&& v : vertices)
-		v->resetToUnDiscovered();
+		v->reset();
 }
 
 DepthFirstVisitor::DepthFirstVisitor()

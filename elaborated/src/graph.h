@@ -22,17 +22,18 @@ public:
 
 	bool isDiscovered() const { return bDiscovered; }
 	void labelDiscovered() { bDiscovered = true; }
-	void resetToUnDiscovered() { bDiscovered = false; }
 
 	void setParent(std::shared_ptr<Vertex> parent);
 	std::shared_ptr<Vertex> getParent() const;
 	bool isParentOf(std::shared_ptr<Vertex> other);
 
+	void reset();
+
 private:
 	bool bDiscovered = false;
 	VertexID id;
 
-	std::shared_ptr<Vertex> parent;
+	std::shared_ptr<Vertex> parent = nullptr;
 };
 
 bool operator<(const Vertex& lhs, const Vertex& rhs);
@@ -99,8 +100,9 @@ public:
 
 
 	/*
-	 * This function resets the state of all vertices in the graph to "undiscovered",
-     * preparing the graph for a new round of graph traversal algorithms.
+     * This function resets the state of all vertices in the graph to "undiscovered"
+     * and sets the parent pointer of each vertex to null. preparing the graph for a 
+	 * new round of graph traversal algorithms.
 	 */
 	void resetVertices();
 

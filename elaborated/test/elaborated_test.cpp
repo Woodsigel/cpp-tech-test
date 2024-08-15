@@ -5,6 +5,7 @@
 
 using ::testing::Eq;
 
+
 std::set<shared_vertex> makeVerticesFrom(std::set<VertexID> IDs) {
 	std::set<shared_vertex> result;
 
@@ -46,6 +47,27 @@ TEST(VertexTest, vertexIsDiscoveredAfterLabeling) {
 	v.labelDiscovered();
 
 	ASSERT_THAT(v.isDiscovered(), Eq(true));
+}
+
+TEST(VertexTest, vertexRelabeledAsUndiscoveredAfterReset) {
+	Vertex v(4);
+	v.labelDiscovered();
+	ASSERT_THAT(v.isDiscovered(), Eq(true));
+
+	v.reset();
+
+	ASSERT_THAT(v.isDiscovered(), Eq(false));
+}
+
+TEST(VertexTest, parentOfVertexIsNullAfterReset) {
+	Vertex v(5);
+	auto parent = std::make_shared<Vertex>(6);
+	v.setParent(parent);
+	ASSERT_THAT(v.getParent(), Eq(parent));
+
+	v.reset();
+
+	ASSERT_THAT(v.getParent(), Eq(nullptr));
 }
 
 TEST(VertexTest, returnTrueIfIsAncestor) {
