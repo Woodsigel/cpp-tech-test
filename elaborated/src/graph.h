@@ -79,7 +79,7 @@ public:
 	/*
      * Check if the graph contains the specified vertex
      *
-     * If the graph contains the vertex with the given ID, the function returns true.
+     * If the graph contains the given vertex, the function returns true.
      * Otherwise, it returns false.
      *
      * @param vertex the vertex to check
