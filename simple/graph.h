@@ -44,7 +44,7 @@ using shared_vertex = std::shared_ptr<Vertex>;
 class UndirectedGraph {
 public:
     /*
-     * Initialize an undirected graph a set of edges
+     * Initialize an undirected graph from a set of edges
      * This constructor accepts a vector of edges, which is used to create and
      * initialize an undirected graph object.
      *
