@@ -23,6 +23,12 @@ bool compareByID(const std::set<shared_vertex>& s1, const std::set<shared_vertex
 					  { return lhs->getID() == rhs->getID();  });
 }
 
+bool isSame(const shared_vertex v1, const shared_vertex v2) {
+	assert(nullptr != v1 && nullptr != v2);
+
+	return v1.get() == v2.get();
+}
+
 shared_vertex item(const std::set<shared_vertex>& vertices) {
 	assert(1 == vertices.size());
 
@@ -188,8 +194,8 @@ TEST(UndirectedGraphTest, adjacentListsIsUndirected) {
 	auto neighborOfV1 = graph.adjacentVerticesOf(v1);
 	auto neighborOfV2 = graph.adjacentVerticesOf(v2);
 
-	ASSERT_THAT(item(neighborOfV1)->getID(), Eq(v2->getID()));
-	ASSERT_THAT(item(neighborOfV2)->getID(), Eq(v1->getID()));
+	ASSERT_TRUE(isSame(v1, item(neighborOfV2)));
+	ASSERT_TRUE(isSame(v2, item(neighborOfV1)));
 }
 
 TEST(UndirectedGraphTest, adjacentListsIgnoreSelfLoop) {
@@ -210,13 +216,8 @@ TEST(UndirectedGraphTest, vertexInsideGraphIsUnique) {
 	auto v1 = graph.getVertexById(1);
 	auto v2 = graph.getVertexById(2);
 	auto neighborOfV2 = item(graph.adjacentVerticesOf(v2));
-	ASSERT_TRUE(neighborOfV2->getID() == v1->getID());
-	ASSERT_THAT(v1->isDiscovered(), Eq(false));
 
-	v1->labelDiscovered();
-
-	ASSERT_THAT(neighborOfV2->isDiscovered(), Eq(true));
-	ASSERT_THAT(v1->isDiscovered(), Eq(true));
+	ASSERT_TRUE(isSame(neighborOfV2, v1));
 }
 
 
