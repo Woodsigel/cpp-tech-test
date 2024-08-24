@@ -166,10 +166,10 @@ void DepthFirstVisitor::search(UndirectedGraph& graph, shared_vertex source)
 	assert(graph.hasVertex(source));
 	graph.resetVertices();
 
-	recur_search(graph, source);
+	recurSearch(graph, source);
 }
 
-void DepthFirstVisitor::recur_search(UndirectedGraph& graph, shared_vertex currentVertex)
+void DepthFirstVisitor::recurSearch(UndirectedGraph& graph, shared_vertex currentVertex)
 {
 	currentVertex->labelDiscovered();
 
@@ -178,7 +178,7 @@ void DepthFirstVisitor::recur_search(UndirectedGraph& graph, shared_vertex curre
 			neighbor->setParent(currentVertex);
 			treeEdgeExaminer(currentVertex, neighbor);
 
-			recur_search(graph, neighbor);
+			recurSearch(graph, neighbor);
 		}
 
 		examineBackEdgeIfFound(currentVertex, neighbor);
