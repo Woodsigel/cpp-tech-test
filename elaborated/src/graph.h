@@ -158,7 +158,7 @@ public:
 	void search(UndirectedGraph& graph, shared_vertex source);
 
 private:
-	void recur_search(UndirectedGraph& graph, shared_vertex source);
+	void recurSearch(UndirectedGraph& graph, shared_vertex source);
 	void examineBackEdgeIfFound(shared_vertex currentVertex, shared_vertex neighbor);
 
 	EdgeExaminer treeEdgeExaminer;
