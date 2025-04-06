@@ -1,7 +1,7 @@
 
 # Solution to C++ Technical Test
 
-Those are the code used to display my coding style, I believe it probably is qualified. Basically, the solution to the test that detects if there is a circle contained in a tree is simple. We can either perform a breadth-first search or depth-first search traversal of the tree, keeping track of the parent node for each visited node. This will allow to identify any back edges that indicate the presence of a cycle.
+This is my solution to your test that checks if a binary tree contains a cycle. We can either perform a breadth-first search or depth-first search traversal of the tree, keeping track of the parent node for each visited node. This will allow to identify any back edges that indicate the presence of a cycle.
  
 In the solution named "simple," I use breadth-first search to solve the task. However, I find the code a bit cluttered within this solution, especially in the `has_circle` function where we have inline code for breadth-first search. Nevertheless, for the sake of simplicity, I have decided to include it.
 
