@@ -6,5 +6,3 @@ This is my solution to your test that checks if a binary tree contains a cycle. 
 In the solution named "simple," I use breadth-first search to solve the task. However, I find the code a bit cluttered within this solution, especially in the `has_circle` function where we have inline code for breadth-first search. Nevertheless, for the sake of simplicity, I have decided to include it.
 
 In the solution named "elaborated," I believe that the code appears to be more appropriate for real projects. Additionally, the solution is more elegant as we detect the circle by checking for the presence of a back edge. The code becomes less cluttered because each method is more aligned with a single intention.
-
-By the way, I don't believe either of those solutions can be utilized for the project involving graph theory, as the implementations seem to be trivial. In actual work, I would prefer to use a third-party library to handle the issue for me. Nevertheless, the code presented in the repository can showcase my coding style.
