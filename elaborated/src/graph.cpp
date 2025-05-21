@@ -80,18 +80,12 @@ void UndirectedGraph::insertAdjacentListItem(const Edge& edge)
 
 shared_vertex UndirectedGraph::makeVertex(VertexID id)
 {
-	auto it = std::find_if(adjacent_lists.begin(), 
-		                   adjacent_lists.end(),
-							[id](const std::pair< shared_vertex, std::set<shared_vertex>>& item)
-							{
-								return item.first->getID() == id;
-							});
-	bool isExisted = it != adjacent_lists.end();
-	if(isExisted)
-		return it->first;
-
-	auto newVertex = std::make_shared<Vertex>(id);
-	return newVertex;
+	auto vertex = getVertexById(id);
+	
+	bool isExisted = (vertex != nullptr);
+	
+	return isExisted ? vertex :
+		               std::make_shared<Vertex>(id);
 }
 
 std::set<shared_vertex> UndirectedGraph::getVertices() const
