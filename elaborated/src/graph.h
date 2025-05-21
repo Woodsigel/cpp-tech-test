@@ -23,9 +23,9 @@ public:
 	bool isDiscovered() const { return bDiscovered; }
 	void labelDiscovered() { bDiscovered = true; }
 
-	void setParent(std::shared_ptr<Vertex> parent);
+	void setParent(const std::shared_ptr<Vertex> parent);
 	std::shared_ptr<Vertex> getParent() const;
-	bool isParentOf(std::shared_ptr<Vertex> other);
+	bool isParentOf(const std::shared_ptr<Vertex> other);
 
 	void reset();
 

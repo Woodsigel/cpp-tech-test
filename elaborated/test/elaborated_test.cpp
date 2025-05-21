@@ -77,27 +77,29 @@ TEST(VertexTest, parentOfVertexIsNullAfterReset) {
 }
 
 TEST(VertexTest, returnTrueIfIsAncestor) {
-	auto v1 = std::make_shared<Vertex>(1);
-	auto v2 = std::make_shared<Vertex>(2);
-	auto v3 = std::make_shared<Vertex>(3);
+	auto ancestor = std::make_shared<Vertex>(1);
+	auto parent = std::make_shared<Vertex>(2);
+	auto decendant = std::make_shared<Vertex>(3);
 
-	v2->setParent(v1);
-	v3->setParent(v2);
+	decendant->setParent(parent);
+	parent->setParent(ancestor);
 
-	ASSERT_THAT(isAncestor(v1, v3), Eq(true));
+	ASSERT_THAT(isAncestor(ancestor, decendant), Eq(true));
 }
 
 TEST(VertexTest, returnFaseIfIsNotAncestor) {
-	auto v1 = std::make_shared<Vertex>(1);
-	auto v2 = std::make_shared<Vertex>(2);
-	auto v3 = std::make_shared<Vertex>(3);
+	auto ancestor = std::make_shared<Vertex>(1);
+	auto parent = std::make_shared<Vertex>(2);
+	auto decendant = std::make_shared<Vertex>(3);
 
-	v3->setParent(v2);
-	v2->setParent(v1);
+	decendant->setParent(parent);
+	parent->setParent(ancestor);
+	auto anotherDecendant = std::make_shared<Vertex>(3);
 
-	auto anotherV1 = std::make_shared<Vertex>(1);
-	ASSERT_THAT(anotherV1->getID(), Eq(v1->getID()));
-	ASSERT_THAT(isAncestor(anotherV1, v3), Eq(false));
+	ASSERT_THAT(decendant->getID(), Eq(anotherDecendant->getID()));
+	ASSERT_THAT(isAncestor(ancestor, decendant), Eq(true));
+
+	ASSERT_THAT(isAncestor(ancestor, anotherDecendant), Eq(false));
 }
 
 TEST(UndirectedGraphTest, makeVerticesFromEdges) {
