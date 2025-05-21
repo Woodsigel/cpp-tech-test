@@ -71,21 +71,20 @@ void UndirectedGraph::insertAdjacentListItem(const Edge& edge)
 	if (source_vertex->getID() != target_vertex->getID()) {
 		adjacent_lists[source_vertex].insert(target_vertex);
 		adjacent_lists[target_vertex].insert(source_vertex);
-		return;
 	}
-
-	if(!hasVertex(source_vertex))
-		adjacent_lists[source_vertex] = std::set<shared_vertex>();
 }
 
 shared_vertex UndirectedGraph::makeVertex(VertexID id)
 {
 	auto vertex = getVertexById(id);
-	
-	bool isExisted = (vertex != nullptr);
-	
-	return isExisted ? vertex :
-		               std::make_shared<Vertex>(id);
+
+	if (vertex != nullptr)
+		return vertex;
+
+	auto newVertex = std::make_shared<Vertex>(id);
+	adjacent_lists[newVertex] = std::set<shared_vertex>();
+
+	return newVertex;
 }
 
 std::set<shared_vertex> UndirectedGraph::getVertices() const
