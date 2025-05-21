@@ -12,12 +12,11 @@ bool operator<(const Vertex& lhs, const Vertex& rhs)
 bool isAncestor(const shared_vertex ancestor, const shared_vertex decendant)
 {
 	assert(nullptr != ancestor && nullptr != decendant);
-	if (nullptr == decendant->getParent())
-		return false;
 
 	auto parent = decendant->getParent();
 	while (nullptr != parent) {
-		if (parent.get() == ancestor.get())
+
+		if (ancestor.get() == parent.get())
 			return true;
 
 		parent = parent->getParent();
@@ -57,9 +56,8 @@ void Vertex::reset()
 
 
 UndirectedGraph::UndirectedGraph(const std::vector<Edge>& edges) {
-	for (auto&& edge : edges) {
+	for (auto&& edge : edges) 
 		insertAdjacentListItem(edge);
-	}
 }
 
 
@@ -92,9 +90,7 @@ std::set<shared_vertex> UndirectedGraph::getVertices() const
 
 	std::set<shared_vertex> result;
 
-	std::transform(adjacent_lists.begin(), 
-		           adjacent_lists.end(),
-				   std::inserter(result, result.begin()),
+	std::transform(adjacent_lists.begin(), adjacent_lists.end(), std::inserter(result, result.begin()),
 				   [](const std::pair< shared_vertex, std::set<shared_vertex>>& item)
 				   {
 			           return item.first;
