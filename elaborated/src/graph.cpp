@@ -11,7 +11,7 @@ bool operator<(const Vertex& lhs, const Vertex& rhs)
 
 bool isAncestor(const shared_vertex ancestor, const shared_vertex decendant)
 {
-	assert(nullptr != ancestor && nullptr != decendant);
+	assert(ancestor != nullptr && decendant != nullptr);
 
 	auto vertex = decendant;
 	while (nullptr != vertex) {
@@ -27,7 +27,7 @@ bool isAncestor(const shared_vertex ancestor, const shared_vertex decendant)
 
 void Vertex::setParent(const shared_vertex _parent)
 {
-	assert(nullptr != _parent);
+	assert(_parent != nullptr);
 	assert(_parent.get() != this);
 
 	parent = _parent;
@@ -40,9 +40,9 @@ shared_vertex Vertex::getParent() const
 
 bool Vertex::isParentOf(const shared_vertex other)
 {
-	assert(nullptr != other);
+	assert(other != nullptr);
 
-	if (nullptr == other->parent)
+	if (other->parent == nullptr)
 		return false;
 
 	return this == other->parent.get();
@@ -102,7 +102,7 @@ std::set<shared_vertex> UndirectedGraph::getVertices() const
 
 bool UndirectedGraph::hasVertex(shared_vertex vertex) const
 {
-	assert(nullptr != vertex);
+	assert(vertex != nullptr);
 
 	auto it = adjacentLists.find(vertex);
 	return it != adjacentLists.end();
