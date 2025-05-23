@@ -50,14 +50,14 @@ TEST(VertexTest, vertexIsUnDiscoveredAfterCreation) {
 TEST(VertexTest, vertexIsDiscoveredAfterLabeling) {
 	Vertex v(3);
 
-	v.labelDiscovered();
+	v.labelAsDiscovered();
 
 	ASSERT_THAT(v.isDiscovered(), Eq(true));
 }
 
 TEST(VertexTest, vertexRelabeledAsUndiscoveredAfterReset) {
 	Vertex v(4);
-	v.labelDiscovered();
+	v.labelAsDiscovered();
 	ASSERT_THAT(v.isDiscovered(), Eq(true));
 
 	v.reset();
@@ -125,7 +125,7 @@ TEST(UndirectedGraphTest, allVerticesAreUnDiscoveredAfterReset) {
 	std::vector<Edge> edges = { {0, 1}, {1, 2}, {2,3}, {3,4} };
 	UndirectedGraph graph(edges);
 	auto v1 = graph.getVertexById(0);
-	v1->labelDiscovered(); 
+	v1->labelAsDiscovered(); 
 	auto vertices = graph.getVertices();
 	auto atLeastOneIsDiscovered = std::any_of(vertices.begin(), vertices.end(),
 		                                      [](shared_vertex vertex) { return vertex->isDiscovered(); });

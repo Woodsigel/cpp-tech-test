@@ -28,7 +28,7 @@ bool isAncestor(const shared_vertex ancestor, const shared_vertex decendant)
 void Vertex::setParent(const shared_vertex _parent)
 {
 	assert(nullptr != _parent);
-	assert(_parent.get() != this && _parent->getID() != this->getID());
+	assert(_parent.get() != this);
 
 	parent = _parent;
 }
@@ -63,12 +63,12 @@ UndirectedGraph::UndirectedGraph(const std::vector<Edge>& edges) {
 
 void UndirectedGraph::insertAdjacentListItem(const Edge& edge)
 {
-	auto source_vertex = makeVertex(edge.source);
-	auto target_vertex = makeVertex(edge.target);
+	auto sourceVertex = makeVertex(edge.source);
+	auto targetVertex = makeVertex(edge.target);
 
-	if (source_vertex->getID() != target_vertex->getID()) {
-		adjacent_lists[source_vertex].insert(target_vertex);
-		adjacent_lists[target_vertex].insert(source_vertex);
+	if (sourceVertex->getID() != targetVertex->getID()) {
+		adjacentLists[sourceVertex].insert(targetVertex);
+		adjacentLists[targetVertex].insert(sourceVertex);
 	}
 }
 
@@ -80,7 +80,7 @@ shared_vertex UndirectedGraph::makeVertex(VertexID id)
 		return vertex;
 
 	auto newVertex = std::make_shared<Vertex>(id);
-	adjacent_lists[newVertex] = std::set<shared_vertex>();
+	adjacentLists[newVertex] = std::set<shared_vertex>();
 
 	return newVertex;
 }
@@ -90,7 +90,7 @@ std::set<shared_vertex> UndirectedGraph::getVertices() const
 
 	std::set<shared_vertex> result;
 
-	std::transform(adjacent_lists.begin(), adjacent_lists.end(), std::inserter(result, result.begin()),
+	std::transform(adjacentLists.begin(), adjacentLists.end(), std::inserter(result, result.begin()),
 				   [](const std::pair< shared_vertex, std::set<shared_vertex>>& item)
 				   {
 			           return item.first;
@@ -104,18 +104,18 @@ bool UndirectedGraph::hasVertex(shared_vertex vertex) const
 {
 	assert(nullptr != vertex);
 
-	auto it = adjacent_lists.find(vertex);
-	return it != adjacent_lists.end();
+	auto it = adjacentLists.find(vertex);
+	return it != adjacentLists.end();
 }
 
 shared_vertex UndirectedGraph::getVertexById(VertexID id) const
 {
-	auto it = std::find_if(adjacent_lists.cbegin(),
-		                   adjacent_lists.cend(), 
+	auto it = std::find_if(adjacentLists.cbegin(),
+		                   adjacentLists.cend(), 
 		                  [id](const std::pair< shared_vertex, std::set<shared_vertex>>& item)
 		                  { return item.first->getID() == id;  });
 
-	auto found = it != adjacent_lists.end();
+	auto found = it != adjacentLists.end();
 
 	return found ? it->first : nullptr;
 }
@@ -123,7 +123,7 @@ shared_vertex UndirectedGraph::getVertexById(VertexID id) const
 const std::set<shared_vertex>& UndirectedGraph::adjacentVerticesOf(shared_vertex vertex) const {
 	assert(hasVertex(vertex));
 
-	auto it = adjacent_lists.find(vertex);
+	auto it = adjacentLists.find(vertex);
 	return it->second;
 }
 
@@ -160,7 +160,7 @@ void DepthFirstVisitor::search(UndirectedGraph& graph, shared_vertex source)
 
 void DepthFirstVisitor::recurSearch(UndirectedGraph& graph, shared_vertex currentVertex)
 {
-	currentVertex->labelDiscovered();
+	currentVertex->labelAsDiscovered();
 
 	for (shared_vertex neighbor : graph.adjacentVerticesOf(currentVertex)) {
 		if (!neighbor->isDiscovered()) {

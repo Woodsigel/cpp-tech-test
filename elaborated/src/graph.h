@@ -26,7 +26,7 @@ public:
 	VertexID getID() const { return id; }
 
 	bool isDiscovered() const { return bDiscovered; }
-	void labelDiscovered() { bDiscovered = true; }
+	void labelAsDiscovered() { bDiscovered = true; }
 
 	void setParent(const shared_vertex parent);
 	shared_vertex getParent() const;
@@ -100,7 +100,7 @@ private:
 	void insertAdjacentListItem(const Edge& edge);
 	shared_vertex makeVertex(VertexID id);
 
-	std::map<shared_vertex, std::set<shared_vertex>> adjacent_lists;
+	std::map<shared_vertex, std::set<shared_vertex>> adjacentLists;
 };
 
 class DepthFirstVisitor {
