@@ -7,7 +7,12 @@
 #include <map>
 #include <functional>
 
+class Vertex;
+
 using VertexID = int;
+using shared_vertex = std::shared_ptr<Vertex>;
+
+bool isAncestor(const shared_vertex ancestor, const shared_vertex decendant);
 
 struct Edge {
 	VertexID source;
@@ -23,9 +28,9 @@ public:
 	bool isDiscovered() const { return bDiscovered; }
 	void labelDiscovered() { bDiscovered = true; }
 
-	void setParent(const std::shared_ptr<Vertex> parent);
-	std::shared_ptr<Vertex> getParent() const;
-	bool isParentOf(const std::shared_ptr<Vertex> other);
+	void setParent(const shared_vertex parent);
+	shared_vertex getParent() const;
+	bool isParentOf(const shared_vertex other);
 
 	void reset();
 
@@ -33,13 +38,12 @@ private:
 	bool bDiscovered = false;
 	VertexID id;
 
-	std::shared_ptr<Vertex> parent = nullptr;
+	shared_vertex parent = nullptr;
 };
 
 bool operator<(const Vertex& lhs, const Vertex& rhs);
 
-using shared_vertex = std::shared_ptr<Vertex>;
-bool isAncestor(const shared_vertex ancestor, const shared_vertex decendant);
+
 
 class UndirectedGraph {
 public:
