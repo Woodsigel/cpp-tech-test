@@ -175,7 +175,7 @@ TEST(UndirectedGraphTest, returnNullWhenVertexIsNotFound) {
 	ASSERT_THAT(vertex, Eq(nullptr));
 }
 
-TEST(UndirectedGraphTest, makeAdjacentListsFromEdges) {
+TEST(UndirectedGraphTest, makeAdjacencyListFromEdges) {
 	std::vector<Edge> edges = { {4, 1}, {4, 2} };
 	auto expect = makeVerticesFrom({ 1, 2 });
 
@@ -186,7 +186,7 @@ TEST(UndirectedGraphTest, makeAdjacentListsFromEdges) {
 	ASSERT_TRUE(compareByID(actual, expect));
 }
 
-TEST(UndirectedGraphTest, adjacentListsIsUndirected) {
+TEST(UndirectedGraphTest, graphIsUndirected) {
 	std::vector<Edge> edges = { {2, 5} };
 
 	UndirectedGraph graph(edges);
@@ -200,7 +200,7 @@ TEST(UndirectedGraphTest, adjacentListsIsUndirected) {
 	ASSERT_TRUE(isSame(v2, item(neighborOfV1)));
 }
 
-TEST(UndirectedGraphTest, adjacentListsIgnoreSelfLoop) {
+TEST(UndirectedGraphTest, ignoreSelfLoop) {
 	std::vector<Edge> edges = { {10, 9} , {10, 10} };
 
 	UndirectedGraph graph(edges);
