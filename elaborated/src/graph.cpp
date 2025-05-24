@@ -67,8 +67,8 @@ void UndirectedGraph::insertAdjacentListItem(const Edge& edge)
 	auto targetVertex = makeVertex(edge.target);
 
 	if (sourceVertex->getID() != targetVertex->getID()) {
-		adjacentLists[sourceVertex].insert(targetVertex);
-		adjacentLists[targetVertex].insert(sourceVertex);
+		adjacencyList[sourceVertex].insert(targetVertex);
+		adjacencyList[targetVertex].insert(sourceVertex);
 	}
 }
 
@@ -80,7 +80,7 @@ shared_vertex UndirectedGraph::makeVertex(VertexID id)
 		return vertex;
 
 	auto newVertex = std::make_shared<Vertex>(id);
-	adjacentLists[newVertex] = std::set<shared_vertex>();
+	adjacencyList[newVertex] = std::set<shared_vertex>();
 
 	return newVertex;
 }
@@ -90,7 +90,7 @@ std::set<shared_vertex> UndirectedGraph::getVertices() const
 
 	std::set<shared_vertex> result;
 
-	std::transform(adjacentLists.begin(), adjacentLists.end(), std::inserter(result, result.begin()),
+	std::transform(adjacencyList.begin(), adjacencyList.end(), std::inserter(result, result.begin()),
 				   [](const std::pair< shared_vertex, std::set<shared_vertex>>& item)
 				   {
 			           return item.first;
@@ -104,18 +104,18 @@ bool UndirectedGraph::hasVertex(shared_vertex vertex) const
 {
 	assert(vertex != nullptr);
 
-	auto it = adjacentLists.find(vertex);
-	return it != adjacentLists.end();
+	auto it = adjacencyList.find(vertex);
+	return it != adjacencyList.end();
 }
 
 shared_vertex UndirectedGraph::getVertexById(VertexID id) const
 {
-	auto it = std::find_if(adjacentLists.cbegin(),
-		                   adjacentLists.cend(), 
+	auto it = std::find_if(adjacencyList.cbegin(),
+		                   adjacencyList.cend(), 
 		                  [id](const std::pair< shared_vertex, std::set<shared_vertex>>& item)
 		                  { return item.first->getID() == id;  });
 
-	auto found = it != adjacentLists.end();
+	auto found = it != adjacencyList.end();
 
 	return found ? it->first : nullptr;
 }
@@ -123,7 +123,7 @@ shared_vertex UndirectedGraph::getVertexById(VertexID id) const
 const std::set<shared_vertex>& UndirectedGraph::adjacentVerticesOf(shared_vertex vertex) const {
 	assert(hasVertex(vertex));
 
-	auto it = adjacentLists.find(vertex);
+	auto it = adjacencyList.find(vertex);
 	return it->second;
 }
 

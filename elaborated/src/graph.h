@@ -100,7 +100,7 @@ private:
 	void insertAdjacentListItem(const Edge& edge);
 	shared_vertex makeVertex(VertexID id);
 
-	std::map<shared_vertex, std::set<shared_vertex>> adjacentLists;
+	std::map<shared_vertex, std::set<shared_vertex>> adjacencyList;
 };
 
 class DepthFirstVisitor {
