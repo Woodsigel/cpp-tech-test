@@ -57,11 +57,11 @@ void Vertex::reset()
 
 UndirectedGraph::UndirectedGraph(const std::vector<Edge>& edges) {
 	for (auto&& edge : edges) 
-		insertAdjacentListItem(edge);
+		insertAdjacencyListItem(edge);
 }
 
 
-void UndirectedGraph::insertAdjacentListItem(const Edge& edge)
+void UndirectedGraph::insertAdjacencyListItem(const Edge& edge)
 {
 	auto sourceVertex = makeVertex(edge.source);
 	auto targetVertex = makeVertex(edge.target);

@@ -97,7 +97,7 @@ public:
 	void resetVertices();
 
 private:
-	void insertAdjacentListItem(const Edge& edge);
+	void insertAdjacencyListItem(const Edge& edge);
 	shared_vertex makeVertex(VertexID id);
 
 	std::map<shared_vertex, std::set<shared_vertex>> adjacencyList;
